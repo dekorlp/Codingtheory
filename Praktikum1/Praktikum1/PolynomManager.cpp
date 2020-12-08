@@ -4,13 +4,13 @@ void PolynomManager::CreateTable(int gfPower)
 {
 	if (gfPower <= 2 && gfPower >= 15)
 	{
-		std::cout << "gfPower ist kleiner als 1 oder größer als 15" << std::endl;
+		std::cout << "gfPower has to be between 1 and 15" << std::endl;
 		return;
 	}
 
 	if (!CheckInputGF2(gfPower))
 	{
-		std::cout << "Basis nicht nicht 2!" << std::endl;
+		std::cout << "Base is not equal 2!" << std::endl;
 		return;
 	}
 
@@ -38,7 +38,7 @@ void PolynomManager::CreateTable(int gfPower)
 		}
 	}
 
-	std::cout << "Unkorrigierte Tabelle: " << std::endl;
+	/*std::cout << "Unkorrigierte Tabelle: " << std::endl;
 	std::cout << "-------------------------------------------------";
 
 	//Print unkorrigierte Tabelle
@@ -63,7 +63,7 @@ void PolynomManager::CreateTable(int gfPower)
 			else
 				std::cout << "";
 		}
-	}
+	}*/
 
 
 
@@ -80,7 +80,7 @@ void PolynomManager::CreateTable(int gfPower)
 	}
 
 
-	std::cout << endl << endl << endl;
+	/*std::cout << endl << endl << endl;
 	std::cout << "Korrigierte Tabelle: " << std::endl;
 	std::cout << "-------------------------------------------------";
 
@@ -106,10 +106,10 @@ void PolynomManager::CreateTable(int gfPower)
 			else
 				std::cout << "";
 		}
-	}
+	}*/
 
-	std::cout << endl << endl << endl;
-	std::cout << "Dezimale Tabelle: " << std::endl;
+	//std::cout << endl << endl << endl;
+	std::cout << "decimal Tabelle: " << std::endl;
 	std::cout << "-------------------------------------------------";
 
 	std::vector<int> dezTable;
