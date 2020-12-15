@@ -13,7 +13,7 @@ The input shall expect an irreducible polynomial.
 
 ## Praktikum 2
 German:
-Exercise 2: Implementieren Sie die Multiplikative Inversion eines binären Erweiterungskörpers GF(2^d).
+Aufgabe 2: Implementieren Sie die Multiplikative Inversion eines binären Erweiterungskörpers GF(2^d).
 
 English:
 Exercise 2: Implement a program, which calculates the multiplicative inverse of an binary field of GF(2^d).
