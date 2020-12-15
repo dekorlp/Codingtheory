@@ -38,6 +38,8 @@ public:
 	Polynom EraseDuplicatedAndSort();
 	Polynom Sort();
 	void Erase(unsigned int index);
+	Polynom EraseZeroBases();
+	unsigned int CalculateHighestFactor();
 
 
 private:

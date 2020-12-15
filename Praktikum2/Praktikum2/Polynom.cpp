@@ -195,6 +195,22 @@ void Polynom::Erase(unsigned int index)
 	m_Polynom.erase(m_Polynom.begin() + index);
 }
 
+Polynom Polynom::EraseZeroBases()
+{
+	Polynom result = m_Polynom;
+
+	// remove factors which bases which are zero
+	for (int i = 0; i < result.GetSize(); i++)
+	{
+		if (result[i].GetBase() == 0)
+		{
+			result.Erase(i);
+		}
+	}
+
+	return result;
+}
+
 Polynom Polynom::operator+(Polynom &rhs)
 {
 	EraseDuplicatedAndSort(); // erase duplicates from m_polynom
@@ -238,6 +254,17 @@ Polynom Polynom::operator+(Polynom &rhs)
 	// erase duplicates and sort terms
 	result = result.Sort();
 
+	// erase Elements with base = 0
+
+	// remove factors which bases which are zero
+	for (int i = 0; i < result.GetSize(); i++)
+	{
+		if (result[i].GetBase() == 0)
+		{
+			result.Erase(i);
+		}
+	}
+
 	return result;
 }
 
@@ -279,4 +306,17 @@ bool Polynom::operator==(Polynom &rhs)
 	}
 
 	return same;
+}
+
+unsigned int Polynom::CalculateHighestFactor()
+{
+	unsigned int highestFactor = 0;
+	for (int i = 0; i < m_Polynom.size(); i++)
+	{
+		if (m_Polynom[i].GetXPower() > highestFactor)
+		{
+			highestFactor = m_Polynom[i].GetXPower();
+		}
+	}
+	return highestFactor;
 }

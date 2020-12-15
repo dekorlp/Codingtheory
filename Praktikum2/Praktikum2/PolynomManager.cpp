@@ -141,6 +141,47 @@ void PolynomManager::CreateTable(int gfPower)
 
 }
 
+void PolynomManager::CalculateInverse(Polynom pol)
+{
+	CreateUnzerlegbarePolynome();
+
+	// get polynom from vector
+	Polynom unzerlegbaresPolynom = m_UnzerlegbarePolynomeGF2[pol.CalculateHighestFactor()];
+
+	// iterative algorithm
+
+	Polynom p = pol;
+	Polynom q = unzerlegbaresPolynom;
+	
+
+	Polynom endEquation({ PolynomPart(1, 0) });
+	Polynom endEquation2({ PolynomPart(-1, 0) });
+
+	while (!(p == endEquation) && !(p == endEquation2) )
+	{
+
+		int highestFactorDifference = p.CalculateHighestFactor() - q.CalculateHighestFactor();
+		if(highestFactorDifference < 0) highestFactorDifference = highestFactorDifference * -1;
+
+		
+
+		// calculate new p
+		Polynom calc({ PolynomPart(-1, highestFactorDifference) });
+		Polynom temp;
+		temp = (p * calc) + q;
+
+
+		q = p;
+		p = temp;
+
+		p = p.EraseZeroBases();
+		
+		int test = 0;
+	}
+
+	int test = 0;
+
+}
 
 bool PolynomManager::CheckInputGF2(int gfPower)
 {
