@@ -4,28 +4,140 @@ void PolynomManager::CreateTable(int gfPower)
 {
 	if (gfPower <= 2 && gfPower >= 15)
 	{
-		std::cout << "gfPower ist kleiner als 1 oder größer als 15" << std::endl;
+		std::cout << "gfPower has to be between 1 and 15" << std::endl;
 		return;
 	}
 
 	if (!CheckInputGF2(gfPower))
 	{
-		std::cout << "Basis nicht nicht 2!" << std::endl;
+		std::cout << "Base is not equal 2!" << std::endl;
 		return;
 	}
 
 	// Ausgabe GF(X) = x^y
-	std::cout << "GF(" << gfPower << ") = 2^" << log(gfPower)/log(2) << std::endl;
+	std::cout << "GF(" << gfPower << ") = 2^" << log(gfPower) / log(2) << std::endl;
 	std::cout << std::endl;
 
 
 	CreateUnzerlegbarePolynome();
-	//CreatePolynome(gfPower-1);
+	CreatePolynome(gfPower - 1);
 
-	Polynom pol1({ PolynomPart(0,0), PolynomPart(2,1) ,PolynomPart(1,2), PolynomPart(1,5) });
-	Polynom pol2({ PolynomPart(1,1), PolynomPart(1,0), PolynomPart(1,4) });
+	Polynom pol1({ PolynomPart(0,0) });
+	Polynom pol2({ PolynomPart(1,1), PolynomPart(1,0) });
 
-	Polynom TEstPolynom =  pol2 + pol1;
+	Polynom TEstPolynom = pol2 * pol1;
+
+	// Erstellen der unkorrigierten Tabelle
+	std::vector<Polynom> uncorrectedTable;
+	for (int i = 0; i < gfPower; i++)
+	{
+		for (int j = 0; j < gfPower; j++)
+		{
+			Polynom Ergebnis = m_Polynome[i] * m_Polynome[j];
+			uncorrectedTable.push_back(Ergebnis);
+		}
+	}
+
+	/*std::cout << "Unkorrigierte Tabelle: " << std::endl;
+	std::cout << "-------------------------------------------------";
+
+	//Print unkorrigierte Tabelle
+	for (int i = 0; i < uncorrectedTable.size(); i++)
+	{
+		if ((i) % gfPower == 0)
+		{
+			std::cout << std::endl;
+		}
+		else
+		{
+			std::cout << "   |   ";
+		}
+
+		for (int j = 0; j< uncorrectedTable.at(i).GetSize(); j++)
+		{
+			std::cout << left << uncorrectedTable.at(i)[j].GetBase() << "X^" << uncorrectedTable.at(i)[j].GetXPower();
+
+
+			if (j != uncorrectedTable.at(i).GetSize()-1)
+				std::cout << " + ";
+			else
+				std::cout << "";
+		}
+	}*/
+
+
+
+	// Korrigiertes Polynom
+	//SimplifyPolynom(Polynom({ PolynomPart(1, 4), PolynomPart(1, 3), PolynomPart(1, 2), PolynomPart(1, 1) }), Polynom({PolynomPart(1,3), PolynomPart(2,1), PolynomPart(1,0) }), 3);   //m_UnzerlegbarePolynomeGF2[(log(gfPower) / log(2))-1]);
+	//SimplifyPolynom(Polynom({ PolynomPart(1, 3), PolynomPart(2, 1) }), Polynom({ PolynomPart(1,3), PolynomPart(2,1), PolynomPart(1,0) }), 3);
+
+	// Erstellen der korrigierten Tabelle
+	std::vector<Polynom> correctedTable;
+	for (int i = 0; i < uncorrectedTable.size(); i++)
+	{
+		Polynom Ergebnis = SimplifyPolynom(uncorrectedTable[i], m_UnzerlegbarePolynomeGF2[(log(gfPower) / log(2)) - 1], 2);
+		correctedTable.push_back(Ergebnis);
+	}
+
+
+	/*std::cout << endl << endl << endl;
+	std::cout << "Korrigierte Tabelle: " << std::endl;
+	std::cout << "-------------------------------------------------";
+
+	//Print korrigierte Tabelle
+	for (int i = 0; i < correctedTable.size(); i++)
+	{
+		if ((i) % gfPower == 0)
+		{
+			std::cout << std::endl;
+		}
+		else
+		{
+			std::cout << "   |   ";
+		}
+
+		for (int j = 0; j < correctedTable.at(i).GetSize(); j++)
+		{
+			std::cout << left << correctedTable.at(i)[j].GetBase() << "X^" << correctedTable.at(i)[j].GetXPower();
+
+
+			if (j != correctedTable.at(i).GetSize() - 1)
+				std::cout << " + ";
+			else
+				std::cout << "";
+		}
+	}*/
+
+	//std::cout << endl << endl << endl;
+	std::cout << "decimal Tabelle: " << std::endl;
+	std::cout << "-------------------------------------------------";
+
+	std::vector<int> dezTable;
+	for (int i = 0; i < correctedTable.size(); i++)
+	{
+		for (int j = 0; j < m_Polynome.size(); j++)
+		{
+			if (correctedTable[i] == m_Polynome[j])
+			{
+				dezTable.push_back(j);
+			}
+		}
+	}
+
+	for (int i = 0; i < dezTable.size(); i++)
+	{
+		if ((i) % gfPower == 0)
+		{
+			std::cout << std::endl;
+		}
+		else
+		{
+			std::cout << "   |   ";
+		}
+
+		std::cout << left << dezTable[i];
+
+	}
 
 }
 
@@ -101,7 +213,7 @@ Polynom PolynomManager::SimplifyPolynom(Polynom pol, Polynom unzerlegbaresPolyno
 
 		Polynom firstStep = Polynom({ helper }) * unzerlegbaresPolynom;
 
-		for (unsigned int i = 0; i < firstStep.GetSize(); i++)
+		for (int i = 0; i < firstStep.GetSize(); i++)
 		{
 			pol.AddPolynomPart(firstStep[i]);
 		}
@@ -113,7 +225,7 @@ Polynom PolynomManager::SimplifyPolynom(Polynom pol, Polynom unzerlegbaresPolyno
 		Polynom thirdStep;
 
 		// Modulo teilen und nutzen der PolynomTeile die nicht 0 sind
-		for (unsigned int i = 0; i < secondStep.GetSize(); i++)
+		for (int i = 0; i < secondStep.GetSize(); i++)
 		{
 			int mod = secondStep[i].GetBase() % modparam;
 
@@ -125,19 +237,19 @@ Polynom PolynomManager::SimplifyPolynom(Polynom pol, Polynom unzerlegbaresPolyno
 
 		// swap pol
 		Polynom swap;
-		for (unsigned int i = thirdStep.GetSize() - 1; i >= 0; i--)
+		for (int i = thirdStep.GetSize() - 1; i >= 0; i--)
 		{
 			swap.AddPolynomPart(thirdStep[i]);
 		}
 
 		pol = swap;
-	}	
+	}
 
 	Polynom endStep;
 
 	// Remove last Modulo Parts!
 	// Modulo teilen und nutzen der PolynomTeile die nicht 0 sind
-	for (unsigned int i = 0; i < pol.GetSize(); i++)
+	for (int i = 0; i < pol.GetSize(); i++)
 	{
 		int mod = pol[i].GetBase() % modparam;
 

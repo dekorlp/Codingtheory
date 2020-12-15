@@ -37,6 +37,7 @@ public:
 	int GetSize();
 	Polynom EraseDuplicatedAndSort();
 	Polynom Sort();
+	void Erase(unsigned int index);
 
 
 private:

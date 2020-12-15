@@ -122,6 +122,8 @@ Polynom Polynom::EraseDuplicatedAndSort()
 			temp.AddPolynomPart(m_Polynom[i]);
 		}
 	}
+
+
 	//m_Polynom = temp;
 
 	return temp;
@@ -188,11 +190,18 @@ Polynom Polynom::operator*(Polynom &rhs)
 	return result;
 }
 
+void Polynom::Erase(unsigned int index)
+{
+	m_Polynom.erase(m_Polynom.begin() + index);
+}
+
 Polynom Polynom::operator+(Polynom &rhs)
 {
+	EraseDuplicatedAndSort(); // erase duplicates from m_polynom
 	Polynom right = m_Polynom;
-	Polynom result = rhs;
+	Polynom result = rhs.EraseDuplicatedAndSort();
 
+	// add all equal terms
 	for (unsigned int i = 0; i < result.GetSize(); i++)
 	{
 		int foundIndex = -1;
@@ -207,6 +216,7 @@ Polynom Polynom::operator+(Polynom &rhs)
 		}
 	}
 	
+	// add all terms which are not equal
 	for (unsigned int i = 0; i < m_Polynom.size(); i++)
 	{
 		bool exists = false;
@@ -224,8 +234,9 @@ Polynom Polynom::operator+(Polynom &rhs)
 			result.AddPolynomPart(m_Polynom[i]);
 		}
 	}
-
-	result.Sort();
+	
+	// erase duplicates and sort terms
+	result = result.Sort();
 
 	return result;
 }
