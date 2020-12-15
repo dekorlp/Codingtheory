@@ -8,7 +8,7 @@ class PolynomManager
 {
 public:
 	void CreateTable(int gfPower);
-	void CalculateInverse(Polynom pol);
+	Polynom CalculateInverse(Polynom pol);
 private:
 	std::vector<Polynom> m_UnzerlegbarePolynomeGF2;
 	std::vector<Polynom> m_Polynome;

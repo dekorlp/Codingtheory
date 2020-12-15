@@ -141,7 +141,7 @@ void PolynomManager::CreateTable(int gfPower)
 
 }
 
-void PolynomManager::CalculateInverse(Polynom pol)
+Polynom PolynomManager::CalculateInverse(Polynom pol)
 {
 	CreateUnzerlegbarePolynome();
 
@@ -152,6 +152,9 @@ void PolynomManager::CalculateInverse(Polynom pol)
 
 	Polynom p = pol;
 	Polynom q = unzerlegbaresPolynom;
+
+	Polynom qRow = Polynom({ PolynomPart(0,0) });
+	Polynom pRow = Polynom({ PolynomPart(1,0) });
 	
 
 	Polynom endEquation({ PolynomPart(1, 0) });
@@ -164,9 +167,19 @@ void PolynomManager::CalculateInverse(Polynom pol)
 		if(highestFactorDifference < 0) highestFactorDifference = highestFactorDifference * -1;
 
 		
+		
+
+		
+		Polynom calc({ PolynomPart(-1, highestFactorDifference) });
+
+		// calculate row
+		Polynom rowResult = (pRow * calc) + qRow;
+		qRow = pRow;
+		pRow = rowResult.Mod(2);
+		
+
 
 		// calculate new p
-		Polynom calc({ PolynomPart(-1, highestFactorDifference) });
 		Polynom temp;
 		temp = (p * calc) + q;
 
@@ -176,12 +189,39 @@ void PolynomManager::CalculateInverse(Polynom pol)
 
 		p = p.Mod(2);
 		p = p.EraseZeroBases();
-		
-		
-		int test = 0;
+	
 	}
 
-	int test = 0;
+	std::cout << "The multiplicative inverse of ";
+
+	// print result on Screen
+
+	std::cout << "[";
+	for (int i = 0; i < pol.GetSize(); i++)
+	{
+		std::cout << pol[i].GetBase() << "x^" << pol[i].GetXPower();
+		if (i != pol.GetSize()-1)
+		{
+			std::cout << " + ";
+		}
+	}
+	std::cout << "]";
+
+	std::cout << " is "; 
+		 
+	// print result on Screen
+	std::cout << "[";
+	for (int i = pRow.GetSize()-1; i >= 0; i--)
+	{
+		std::cout << pRow[i].GetBase() << "x^" << pRow[i].GetXPower();
+		if (i != 0)
+		{
+			std::cout << " + ";
+		}
+	}
+	std::cout << "]";
+
+	return pRow;
 
 }
 
