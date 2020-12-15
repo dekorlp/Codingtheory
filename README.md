@@ -18,3 +18,5 @@ Aufgabe 2: Implementieren Sie die Multiplikative Inversion eines binären Erweit
 English:
 Aufgabe 2: Implement a program, which calculates the multiplicative inverse of an binary field of GF(2^d).
 
+
+![Result](https://github.com/dekorlp/Codingtheory/blob/main/Ressources/practical2_result.PNG)
