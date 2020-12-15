@@ -10,3 +10,11 @@ Exercise 1: Write a program, which creates a multiplication table for a field of
 The input shall expect an irreducible polynomial.
 
 ![Result](https://github.com/dekorlp/Codingtheory/blob/main/Ressources/practical1_result.PNG)
+
+## Praktikum 2
+German:
+Aufgabe 2: Implementieren Sie die Multiplikative Inversion eines binären Erweiterungskörpers GF(2^d).
+
+English:
+Aufgabe 2: Implement a program, which calculates the multiplicative inverse of an binary field of GF(2^d).
+
