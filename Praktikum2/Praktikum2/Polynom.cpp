@@ -320,3 +320,18 @@ unsigned int Polynom::CalculateHighestFactor()
 	}
 	return highestFactor;
 }
+
+Polynom Polynom::Mod( unsigned int base)
+{
+	Polynom result;
+
+	for (int i = 0; i < m_Polynom.size(); i++)
+	{
+		PolynomPart temp(m_Polynom[i].GetBase() % base, m_Polynom[i].GetXPower());
+
+		if(temp.GetBase() != 0)
+		result.AddPolynomPart(temp);
+	}
+
+	return result;
+}

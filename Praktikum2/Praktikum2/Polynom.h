@@ -32,6 +32,7 @@ public:
 	void CreatePolynom(std::vector<PolynomPart> polynom);
 	Polynom operator*(Polynom &rhs);
 	Polynom operator+(Polynom &rhs);
+	Polynom Mod( unsigned int base);
 	PolynomPart operator[](int index);
 	bool operator==(Polynom &rhs);
 	int GetSize();

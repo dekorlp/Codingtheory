@@ -174,7 +174,9 @@ void PolynomManager::CalculateInverse(Polynom pol)
 		q = p;
 		p = temp;
 
+		p = p.Mod(2);
 		p = p.EraseZeroBases();
+		
 		
 		int test = 0;
 	}
