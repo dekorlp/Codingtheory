@@ -1,0 +1,19 @@
+
+#include <vector>
+#include "Matrix.h"
+
+int main()
+{
+	std::vector < std::vector<double>> Generatormatrix(
+		{
+			{ 0, 0, 0, 1, 1, 1},
+			{0, 1, 1, 0, 1, 2},
+			{1, 0, 1, 1, 2, 1 } 
+		});
+
+	Matrix mat;
+	mat.CreateGeneratorMatrix(Generatormatrix);
+	mat.CreateCanonicalMatrix();
+
+	return 0;
+}
