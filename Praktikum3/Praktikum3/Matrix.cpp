@@ -13,57 +13,7 @@ void Matrix::CreateGeneratorMatrix(std::vector < std::vector<int>> values)
 
 void Matrix::CreateCanonicalMatrix()
 {
-	// https://www.geeksforgeeks.org/program-for-gauss-jordan-elimination-method/
-
-	/*int i, j, k = 0, c;
-
-	int n = m_Values.size();
-
-	// Performing elementary operations 
-	for (i = 0; i < n; i++)
-	{
-		if (m_Values[i][i] == 0)
-		{
-			c = 1;
-			while ((i + c) < n && m_Values[i + c][i] == 0)
-				c++;
-			if ((i + c) == n) {
-				//flag = 1;
-				break;
-			}
-			for (j = i, k = 0; k <= n; k++)
-				std::swap(m_Values[j][k], m_Values[j + c][k]);
-			
-		}
-
-		for (j = 0; j < n; j++) {
-
-			// Excluding all i == j 
-			if (i != j) {
-
-				// Converting Matrix to reduced row 
-				// echelon form(diagonal matrix) 
-				float pro = m_Values[j][i] / m_Values[i][i];
-
-				for (k = 0; k <= n; k++)
-					m_Values[j][k] = m_Values[j][k] - (m_Values[i][k]) * pro;
-			}
-		}
-
-	}	
-
-	int test = 0;*/
-
-
-	//int zeilen = 3;
-	//int spalten = 6;
-
-	//TEST+++++++++++++++++++++
-	/*int[,] matrix = new int[2, 4]{
-	{ 1, 2, 0, 1},
-	{ 1, 0, 2, 2 },
-	};*/
-	//+++++++++++++++++++++++++
+	// https://rosettacode.org/wiki/Reduced_row_echelon_form#C.23
 
 	int lead = 0, rowCount = m_Values.size(), columnCount = m_Values[0].size();
 	for (int r = 0; r < rowCount; r++)
@@ -104,5 +54,31 @@ void Matrix::CreateCanonicalMatrix()
 		lead++;
 	}
 
-	int test = 0;
+	// change columns
+	for (int i = 0; i < m_Values.size(); i++)
+	{
+		for (int j = 0; j < m_Values[i].size(); j++)
+		{
+			if (m_Values[i][j] == 1 && i == j)
+			{
+				break;
+			}
+			else
+			{
+				int test = 0;
+				if (m_Values[i][j] == 1)
+				{
+					for (int k = 0; k < rowCount; k++)
+					{
+						int temp = m_Values[k][i];
+						m_Values[k][i] = m_Values[k][j];
+						m_Values[k][j] = temp;
+						int test = 0;
+					}
+					break;
+				}
+			}
+		}
+		
+	}
 }
