@@ -4,7 +4,7 @@
 
 int main()
 {
-	std::vector < std::vector<double>> Generatormatrix(
+	std::vector < std::vector<int>> Generatormatrix(
 		{
 			{ 0, 0, 0, 1, 1, 1},
 			{0, 1, 1, 0, 1, 2},
