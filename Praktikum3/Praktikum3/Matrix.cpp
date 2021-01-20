@@ -4,12 +4,11 @@ Matrix::Matrix()
 {
 
 }
-#define N 3
 
-void Matrix::CreateGeneratorMatrix(std::vector < std::vector<int>> values, int q)
+void Matrix::CreateGeneratorMatrix(std::vector < std::vector<int>> values, int p)
 {
 	this->m_Values = values;
-	this->q = q;
+	this->p = p;
 }
 
 void Matrix::CreateCanonicalMatrix()
@@ -154,7 +153,7 @@ void Matrix::CreateControlMatrix()
 	{
 		for (int j = 0; j < backPart[i].size(); j++)
 		{
-			transposed[j][i] = ((-backPart[i][j]) + q)%q;
+			transposed[j][i] = ((-backPart[i][j]) + p)%p;
 			int test = 0;
 		}
 	}
@@ -193,4 +192,10 @@ void Matrix::CreateControlMatrix()
 
 		std::cout << std::endl;
 	}
+}
+
+void Matrix::CreateSyndromeTable(int q)
+{
+
+
 }

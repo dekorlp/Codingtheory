@@ -15,6 +15,7 @@ int main()
 	mat.CreateGeneratorMatrix(Generatormatrix, 3);
 	mat.CreateCanonicalMatrix();
 	mat.CreateControlMatrix();
+	mat.CreateSyndromeTable(2);
 
 	return 0;
 }
