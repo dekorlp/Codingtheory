@@ -12,9 +12,9 @@ int main()
 		});
 
 	Matrix mat;
-	mat.CreateGeneratorMatrix(Generatormatrix);
+	mat.CreateGeneratorMatrix(Generatormatrix, 3);
 	mat.CreateCanonicalMatrix();
-	mat.CreateControlMatrix(3);
+	mat.CreateControlMatrix();
 
 	return 0;
 }

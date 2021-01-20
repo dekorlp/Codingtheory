@@ -6,9 +6,10 @@ Matrix::Matrix()
 }
 #define N 3
 
-void Matrix::CreateGeneratorMatrix(std::vector < std::vector<int>> values)
+void Matrix::CreateGeneratorMatrix(std::vector < std::vector<int>> values, int q)
 {
 	this->m_Values = values;
+	this->q = q;
 }
 
 void Matrix::CreateCanonicalMatrix()
@@ -113,10 +114,10 @@ void Matrix::CreateCanonicalMatrix()
 	}
 }
 
-void Matrix::CreateControlMatrix(int q)
+void Matrix::CreateControlMatrix()
 {
-	std::cout << std::endl;
-	std::cout << std::endl;
+	//std::cout << std::endl;
+	//std::cout << std::endl;
 
 	int rowCount = m_Values.size(), columnCount = m_Values[0].size();
 
@@ -128,12 +129,12 @@ void Matrix::CreateControlMatrix(int q)
 
 		for (int j = rowCount; j < columnCount; j++)
 		{
-			std::cout << m_Values[i][j] << " ";
+			//std::cout << m_Values[i][j] << " ";
 			row.push_back(m_Values[i][j]);
 		}
 		backPart.push_back(row);
 
-		std::cout << std::endl;
+		//std::cout << std::endl;
 	}
 
 	/*std::vector < std::vector<int>> backPart(
@@ -179,4 +180,17 @@ void Matrix::CreateControlMatrix(int q)
 	}
 
 	Controlmatrix = transposed;
+
+	// print Matrix in canonical Form
+	std::cout << std::endl,
+		std::cout << "Control Matrix: " << std::endl;
+	for (int i = 0; i < Controlmatrix.size(); i++)
+	{
+		for (int j = 0; j < Controlmatrix[i].size(); j++)
+		{
+			std::cout << Controlmatrix[i][j] << " ";
+		}
+
+		std::cout << std::endl;
+	}
 }
