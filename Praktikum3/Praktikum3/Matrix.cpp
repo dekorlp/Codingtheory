@@ -112,3 +112,71 @@ void Matrix::CreateCanonicalMatrix()
 		std::cout << std::endl;
 	}
 }
+
+void Matrix::CreateControlMatrix(int q)
+{
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	int rowCount = m_Values.size(), columnCount = m_Values[0].size();
+
+	// grab back part, which is not the identity matrix
+	std::vector<std::vector<int>> backPart;
+	for (int i = 0; i < rowCount; i++)
+	{
+		std::vector<int> row;
+
+		for (int j = rowCount; j < columnCount; j++)
+		{
+			std::cout << m_Values[i][j] << " ";
+			row.push_back(m_Values[i][j]);
+		}
+		backPart.push_back(row);
+
+		std::cout << std::endl;
+	}
+
+	/*std::vector < std::vector<int>> backPart(
+		{
+			{ 1, 1, 0},
+			{1, 1, 2}
+		});*/
+
+	std::vector<std::vector<int>> transposed;
+	transposed.resize(backPart[0].size());
+	for (int i = 0; i < transposed.size(); i++)
+	{
+		transposed[i].resize(backPart.size());
+	}
+
+	for (int i = 0; i < backPart.size(); i++)
+	{
+		for (int j = 0; j < backPart[i].size(); j++)
+		{
+			transposed[j][i] = ((-backPart[i][j]) + q)%q;
+			int test = 0;
+		}
+	}
+
+	int rowCountTransposed = transposed.size(), columnCountTransposed = transposed[0].size();
+
+	int identityCounter = 0;
+	// append identity matrix
+	for (int i = 0; i < transposed.size(); i++)
+	{
+		for (int j = 0; j < rowCountTransposed; j++)
+		{
+			if (j == identityCounter)
+			{
+				transposed[i].push_back(1);
+			}
+			else
+			{
+				transposed[i].push_back(0);
+			}
+		}
+		identityCounter++;
+	}
+
+	Controlmatrix = transposed;
+}

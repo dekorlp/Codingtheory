@@ -14,6 +14,7 @@ int main()
 	Matrix mat;
 	mat.CreateGeneratorMatrix(Generatormatrix);
 	mat.CreateCanonicalMatrix();
+	mat.CreateControlMatrix(3);
 
 	return 0;
 }
