@@ -180,7 +180,7 @@ void Matrix::CreateControlMatrix()
 
 	Controlmatrix = transposed;
 
-	// print Matrix in canonical Form
+	// print control Matrix in canonical Form
 	std::cout << std::endl,
 		std::cout << "Control Matrix: " << std::endl;
 	for (int i = 0; i < Controlmatrix.size(); i++)
@@ -192,10 +192,56 @@ void Matrix::CreateControlMatrix()
 
 		std::cout << std::endl;
 	}
+
+	// transpose 
+	std::vector<std::vector<int>> transposedControlMatrix;
+	transposedControlMatrix.resize(Controlmatrix[0].size());
+
+	for (int i = 0; i < Controlmatrix.size(); i++)
+	{
+		for (int j = 0; j < Controlmatrix[0].size(); j++)
+		{
+			transposedControlMatrix.at(j).push_back(Controlmatrix[i][j]);
+		}
+	}
+
+	Controlmatrix = transposedControlMatrix;
+
+	// print transposed control Matrix in canonical Form
+	std::cout << std::endl,
+		std::cout << "Control Matrix: " << std::endl;
+	for (int i = 0; i < Controlmatrix.size(); i++)
+	{
+		for (int j = 0; j < Controlmatrix[i].size(); j++)
+		{
+			std::cout << Controlmatrix[i][j] << " ";
+		}
+
+		std::cout << std::endl;
+	}
+
+
 }
 
 void Matrix::CreateSyndromeTable(int q)
 {
+	int countKeys = pow(p, Controlmatrix.size());
 
+	syndromeTable.insert(std::pair<std::vector<int>, std::vector<int>>({ 0, 0,0 }, { 0, 0,0 }));
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			
+		}
+
+	}
+
+	std::vector<int> syndrome;
+	for (int i = 0; i < p; i++)
+	{
+		syndrome.push_back(i);
+	}
 
 }
