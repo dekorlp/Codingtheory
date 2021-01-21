@@ -223,13 +223,46 @@ void Matrix::CreateControlMatrix()
 
 }
 
+void Matrix::CreateControlMatrix(std::vector < std::vector<int>> values, int p)
+{
+	this->p = p;
+	this->Controlmatrix = values;
+
+	// transpose 
+	std::vector<std::vector<int>> transposedControlMatrix;
+	transposedControlMatrix.resize(Controlmatrix[0].size());
+
+	for (int i = 0; i < Controlmatrix.size(); i++)
+	{
+		for (int j = 0; j < Controlmatrix[0].size(); j++)
+		{
+			transposedControlMatrix.at(j).push_back(Controlmatrix[i][j]);
+		}
+	}
+
+	Controlmatrix = transposedControlMatrix;
+
+	// print transposed control Matrix in canonical Form
+	std::cout << std::endl,
+		std::cout << "Control Matrix: " << std::endl;
+	for (int i = 0; i < Controlmatrix.size(); i++)
+	{
+		for (int j = 0; j < Controlmatrix[i].size(); j++)
+		{
+			std::cout << Controlmatrix[i][j] << " ";
+		}
+
+		std::cout << std::endl;
+	}
+}
+
 void Matrix::CreateSyndromeTable(int q)
 {
 	int codelength = Controlmatrix.size();
 	int messageLength = Controlmatrix[0].size();
 	int dimension = -1 * messageLength + codelength;
 
-	int countKeys = pow(p, Controlmatrix.size());
+	int countKeys = pow(p, codelength - dimension);
 
 	syndromeTable.insert(std::pair<std::vector<int>, std::vector<int>>({ 0, 0,0 }, { 0, 0,0 }));
 

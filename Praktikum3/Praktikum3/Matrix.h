@@ -17,6 +17,7 @@ public:
 	Matrix();
 	void CreateGeneratorMatrix(std::vector < std::vector<int>> values, int p); // definition
 	void CreateCanonicalMatrix(); // 1
+	void CreateControlMatrix(std::vector < std::vector<int>> values, int p); // 2 (For Debugging and testing)
 	void CreateControlMatrix(); // 2
 	void CreateSyndromeTable(int q); // 3
 
