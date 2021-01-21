@@ -256,7 +256,7 @@ void Matrix::CreateControlMatrix(std::vector < std::vector<int>> values, int p)
 	}
 }
 
-void Matrix::CreateSyndromeTable(int q)
+void Matrix::CreateSyndromeTable()
 {
 	int codelength = Controlmatrix.size();
 	int messageLength = Controlmatrix[0].size();
@@ -269,6 +269,11 @@ void Matrix::CreateSyndromeTable(int q)
 	std::vector<std::vector<int>> tuples;
 	GenerateAllBinaries(codelength, arr, 0, &tuples);
 
+	for (int i = 0; i < tuples.size(); i++)
+	{
+		//FillMap(tuples[24], Controlmatrix);
+		FillMap(tuples[i], Controlmatrix);
+	}
 }
 
 void Matrix::GenerateAllBinaries(int n, std::vector<int> &arr, int i, std::vector<std::vector<int>> *tuple)
@@ -283,5 +288,38 @@ void Matrix::GenerateAllBinaries(int n, std::vector<int> &arr, int i, std::vecto
 	{
 		arr[i] = j;
 		GenerateAllBinaries(n, arr, i + 1, tuple);
+	}
+}
+
+void Matrix::FillMap(std::vector<int> tuple, std::vector<std::vector<int>> Controlmatrix)
+{
+	std::vector<int> value;
+	
+	for (int i = 0; i < Controlmatrix[0].size(); i++)
+	{
+		int result = 0;
+		for (int j = 0; j < tuple.size(); j++) // length of tuple = size of Controlmatrix (count columns)
+		{
+			result += Controlmatrix[j][i] * tuple[j];
+			result %=p;
+		}
+		value.push_back(result);
+	}
+
+	// insert into map
+	if (syndromeTable.find(value) == syndromeTable.end())
+	{
+		std::vector<std::vector<int>> entries;
+		entries.push_back(tuple);
+
+		// not found in dictionary
+		syndromeTable.insert(std::pair< std::vector<int>, std::vector<std::vector<int>>>(value, entries));
+		int test = 0;
+	}
+	else
+	{
+		syndromeTable.find(value)->second.push_back(tuple);
+		// found in dictionary
+		int test = 0;
 	}
 }

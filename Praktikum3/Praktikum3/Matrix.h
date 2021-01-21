@@ -12,10 +12,11 @@ class Matrix
 private:
 	std::vector<std::vector<int>> m_Values; // Generatormatrix
 	std::vector<std::vector<int>> Controlmatrix; // Controlmatrix
-	std::map<std::vector<int>, std::vector<int>> syndromeTable;
+	std::map<std::vector<int>, std::vector<std::vector<int>>> syndromeTable;
 	int p = 0;
 
 	void GenerateAllBinaries(int n, std::vector<int> &arr, int i, std::vector<std::vector<int>> *tuple);
+	void FillMap(std::vector<int> tuple, std::vector<std::vector<int>> Controlmatrix);
 
 public:
 	Matrix();
@@ -23,7 +24,7 @@ public:
 	void CreateCanonicalMatrix(); // 1
 	void CreateControlMatrix(std::vector < std::vector<int>> values, int p); // 2 (For Debugging and testing)
 	void CreateControlMatrix(); // 2
-	void CreateSyndromeTable(int q); // 3
+	void CreateSyndromeTable(); // 3
 
 
 };
