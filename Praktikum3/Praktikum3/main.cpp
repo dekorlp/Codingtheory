@@ -1,6 +1,7 @@
 
 #include <vector>
 #include "Matrix.h"
+#include <string>
 
 int main()
 {

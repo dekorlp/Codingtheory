@@ -262,23 +262,26 @@ void Matrix::CreateSyndromeTable(int q)
 	int messageLength = Controlmatrix[0].size();
 	int dimension = -1 * messageLength + codelength;
 
-	int countKeys = pow(p, codelength - dimension);
+	//int countKeys = pow(p, codelength - dimension);
 
-	syndromeTable.insert(std::pair<std::vector<int>, std::vector<int>>({ 0, 0,0 }, { 0, 0,0 }));
+	std::vector<int> arr;
+	arr.resize(codelength);
+	std::vector<std::vector<int>> tuples;
+	GenerateAllBinaries(codelength, arr, 0, &tuples);
 
-	for (int i = 0; i < 3; i++)
+}
+
+void Matrix::GenerateAllBinaries(int n, std::vector<int> &arr, int i, std::vector<std::vector<int>> *tuple)
+{
+	if (i == n)
 	{
-		for (int j = 0; j < 3; j++)
-		{
-			
-		}
-
+		tuple->push_back(arr);
+		return;
 	}
 
-	std::vector<int> syndrome;
-	for (int i = 0; i < p; i++)
+	for (int j = 0; j < p; j++)
 	{
-		syndrome.push_back(i);
+		arr[i] = j;
+		GenerateAllBinaries(n, arr, i + 1, tuple);
 	}
-
 }
