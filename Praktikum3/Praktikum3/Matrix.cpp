@@ -225,6 +225,10 @@ void Matrix::CreateControlMatrix()
 
 void Matrix::CreateSyndromeTable(int q)
 {
+	int codelength = Controlmatrix.size();
+	int messageLength = Controlmatrix[0].size();
+	int dimension = -1 * messageLength + codelength;
+
 	int countKeys = pow(p, Controlmatrix.size());
 
 	syndromeTable.insert(std::pair<std::vector<int>, std::vector<int>>({ 0, 0,0 }, { 0, 0,0 }));
