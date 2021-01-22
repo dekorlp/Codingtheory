@@ -386,7 +386,7 @@ void Matrix::ErrorCorrection(std::string message)
 
 	// print corrected message
 	std::cout << std::endl;
-	std::cout << "Corrected Message: " << std::endl;
+	std::cout << "Corrected Message: ";
 	for (auto i : resultVec)
 		std::cout << i;
 	
