@@ -64,10 +64,44 @@ void Matrix::CreateCanonicalMatrix()
 			if (j != r)
 			{
 				int sub = m_Values[j][lead];
-				for (int k = 0; k < columnCount; k++) m_Values[j][k] -= (sub * m_Values[r][k]);
+				for (int k = 0; k < columnCount; k++)
+				{
+					m_Values[j][k] -= (sub * m_Values[r][k]);
+					int test = 0;
+				}
 			}
 		}
 		lead++;
+	}
+
+	// use modulo on matrix
+	for (int i = 0; i < rowCount; i++)
+	{
+		for (int j = 0; j < columnCount; j++)
+		{
+			if (m_Values[i][j] < 0)
+			{
+				m_Values[i][j] = m_Values[i][j] + p;
+			}
+			else
+			{
+				m_Values[i][j] = m_Values[i][j] % p;
+			}
+		}
+
+	}
+
+	// print Matrix in canonical Form
+	std::cout << std::endl,
+		std::cout << "Canonical Matrix: " << std::endl;
+	for (int i = 0; i < rowCount; i++)
+	{
+		for (int j = 0; j < columnCount; j++)
+		{
+			std::cout << m_Values[i][j] << " ";
+		}
+
+		std::cout << std::endl;
 	}
 
 	// change columns
