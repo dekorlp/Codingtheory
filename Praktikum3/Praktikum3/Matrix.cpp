@@ -343,3 +343,64 @@ void Matrix::ApplyMod(std::vector<std::vector<int>> matrix)
 
 	}
 }
+
+void Matrix::ErrorCorrection(std::string message)
+{
+	std::vector<int> messageVec;
+	
+	// convert to int vector
+	for (int i = 0; i < message.size(); i++)
+	{
+		messageVec.push_back((int)message[i] - 48);
+		int test = 0;
+	}
+
+	// generate class of syndrome table
+	std::vector<int> classNumber;
+	for (int i = 0; i < Controlmatrix[0].size(); i++)
+	{
+		int result = 0;
+		for (int j = 0; j < messageVec.size(); j++) // length of tuple = size of Controlmatrix (count columns)
+		{
+			result += Controlmatrix[j][i] * messageVec[j];
+			result %= p;
+		}
+		classNumber.push_back(result);
+	}
+
+
+	std::vector<int> correction = syndromeTable.find(classNumber)->second[0]; // if there are more than one, chose one element of the collection
+	std::vector<int> resultVec;
+
+	// subtract and calculate mod p
+	for (int i = 0; i < correction.size(); i++)
+	{
+		int result = messageVec[i] - correction[i];
+		result = result % p;
+		if (result < 0)
+		{
+			result += p;
+		}
+		resultVec.push_back(result);
+	}
+
+	// print corrected message
+	std::cout << std::endl;
+	std::cout << "Corrected Message: " << std::endl;
+	for (auto i : resultVec)
+		std::cout << i;
+	
+	// calculate Hamington Distance
+	int hamingtonCounter = 0;
+	for (int i = 0; i < resultVec.size(); i++)
+	{
+		if (messageVec[i] != resultVec[i])
+		{
+			hamingtonCounter++;
+		}
+	}
+
+	// print hamington distance
+	std::cout << std::endl;
+	std::cout << "Hamington Distance: " << hamingtonCounter << std::endl;
+}

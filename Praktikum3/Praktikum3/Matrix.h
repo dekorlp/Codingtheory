@@ -31,6 +31,7 @@ public:
 	void CreateControlMatrix(std::vector < std::vector<int>> values, int p); // 2 (For Debugging and testing)
 	void CreateControlMatrix(); // 2
 	void CreateSyndromeTable(); // 3
+	void ErrorCorrection(std::string message);
 
 
 };

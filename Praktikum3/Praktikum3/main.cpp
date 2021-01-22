@@ -44,6 +44,7 @@ int main()
 	mat.CreateControlMatrix();
 	//mat.CreateControlMatrix(DebuggingControlMatrix, 2);
 	mat.CreateSyndromeTable();
+	mat.ErrorCorrection("01001");
 
 	return 0;
 }
