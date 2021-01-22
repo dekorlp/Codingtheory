@@ -13,23 +13,13 @@ void Matrix::CreateGeneratorMatrix(std::vector < std::vector<int>> values, int p
 
 void Matrix::CreateCanonicalMatrix()
 {
-
-
 	// https://rosettacode.org/wiki/Reduced_row_echelon_form#C.23
 
 	int lead = 0, rowCount = m_Values.size(), columnCount = m_Values[0].size();
 
 	// print Matrix Form
 	std::cout << "Input Matrix: " << std::endl;
-	for (int i = 0; i < rowCount; i++)
-	{
-		for (int j = 0; j < columnCount; j++)
-		{
-			std::cout << m_Values[i][j] << " ";
-		}
-
-		std::cout << std::endl;
-	}
+	PrintMatrix(rowCount, columnCount, m_Values);
 
 	// create matrix in stairs form
 	for (int r = 0; r < rowCount; r++)
@@ -74,84 +64,18 @@ void Matrix::CreateCanonicalMatrix()
 		lead++;
 	}
 
-	// use modulo on matrix
-	for (int i = 0; i < rowCount; i++)
-	{
-		for (int j = 0; j < columnCount; j++)
-		{
-			if (m_Values[i][j] < 0)
-			{
-				m_Values[i][j] = m_Values[i][j] + p;
-			}
-			else
-			{
-				m_Values[i][j] = m_Values[i][j] % p;
-			}
-		}
 
-	}
-
-	// print Matrix in canonical Form
-	std::cout << std::endl,
-		std::cout << "Canonical Matrix: " << std::endl;
-	for (int i = 0; i < rowCount; i++)
-	{
-		for (int j = 0; j < columnCount; j++)
-		{
-			std::cout << m_Values[i][j] << " ";
-		}
-
-		std::cout << std::endl;
-	}
-
-	// change columns
-	for (int i = 0; i < m_Values.size(); i++)
-	{
-		for (int j = 0; j < m_Values[i].size(); j++)
-		{
-			if (m_Values[i][j] == 1 && i == j)
-			{
-				// first 1 is in the correct position
-				break;
-			}
-			else
-			{
-				// first 1 is not in the correct position
-				// so make triangle change
-				if (m_Values[i][j] == 1)
-				{
-					for (int k = 0; k < rowCount; k++)
-					{
-						int temp = m_Values[k][i];
-						m_Values[k][i] = m_Values[k][j];
-						m_Values[k][j] = temp;
-					}
-					break;
-				}
-			}
-		}
-		
-	}
+	MoveUnitMatrix(m_Values);
+	ApplyMod(m_Values);
 
 	// print Matrix in canonical Form
 	std::cout << std::endl,
 	std::cout << "Canonical Matrix: " << std::endl;
-	for (int i = 0; i < rowCount; i++)
-	{
-		for (int j = 0; j < columnCount; j++)
-		{
-			std::cout << m_Values[i][j] << " ";
-		}
-
-		std::cout << std::endl;
-	}
+	PrintMatrix(rowCount, columnCount, m_Values);
 }
 
 void Matrix::CreateControlMatrix()
 {
-	//std::cout << std::endl;
-	//std::cout << std::endl;
-
 	int rowCount = m_Values.size(), columnCount = m_Values[0].size();
 
 	// grab back part, which is not the identity matrix
@@ -170,11 +94,6 @@ void Matrix::CreateControlMatrix()
 		//std::cout << std::endl;
 	}
 
-	/*std::vector < std::vector<int>> backPart(
-		{
-			{ 1, 1, 0},
-			{1, 1, 2}
-		});*/
 
 	std::vector<std::vector<int>> transposed;
 	transposed.resize(backPart[0].size());
@@ -308,6 +227,8 @@ void Matrix::CreateSyndromeTable()
 		//FillMap(tuples[24], Controlmatrix);
 		FillMap(tuples[i], Controlmatrix);
 	}
+
+	int test = 0;
 }
 
 void Matrix::GenerateAllBinaries(int n, std::vector<int> &arr, int i, std::vector<std::vector<int>> *tuple)
@@ -355,5 +276,70 @@ void Matrix::FillMap(std::vector<int> tuple, std::vector<std::vector<int>> Contr
 		syndromeTable.find(value)->second.push_back(tuple);
 		// found in dictionary
 		int test = 0;
+	}
+}
+
+void Matrix::PrintMatrix(int rowCount, int columnCount, std::vector<std::vector<int>> matrix)
+{
+	for (int i = 0; i < rowCount; i++)
+	{
+		for (int j = 0; j < columnCount; j++)
+		{
+			std::cout << matrix[i][j] << " ";
+		}
+
+		std::cout << std::endl;
+	}
+}
+
+void Matrix::MoveUnitMatrix(std::vector<std::vector<int>> matrix)
+{
+	int rowCount = m_Values.size();
+
+	for (int i = 0; i < m_Values.size(); i++)
+	{
+		for (int j = 0; j < m_Values[i].size(); j++)
+		{
+			if (m_Values[i][j] == 1 && i == j)
+			{
+				// first 1 is in the correct position
+				break;
+			}
+			else
+			{
+				// first 1 is not in the correct position
+				// so make triangle change
+				if (m_Values[i][j] == 1)
+				{
+					for (int k = 0; k < rowCount; k++)
+					{
+						int temp = m_Values[k][i];
+						m_Values[k][i] = m_Values[k][j];
+						m_Values[k][j] = temp;
+					}
+					break;
+				}
+			}
+		}
+
+	}
+}
+
+void Matrix::ApplyMod(std::vector<std::vector<int>> matrix)
+{
+	int rowCount = m_Values.size(), columnCount = m_Values[0].size();
+
+	// use modulo on matrix
+	for (int i = 0; i < rowCount; i++)
+	{
+		for (int j = 0; j < columnCount; j++)
+		{
+			m_Values[i][j] = m_Values[i][j] % p;
+			if (m_Values[i][j] < 0)
+			{
+				m_Values[i][j] = m_Values[i][j] + p;
+			}
+		}
+
 	}
 }

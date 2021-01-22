@@ -15,6 +15,12 @@ private:
 	std::map<std::vector<int>, std::vector<std::vector<int>>> syndromeTable;
 	int p = 0;
 
+	// helper methods For Control Matrix
+	void MoveUnitMatrix(std::vector<std::vector<int>> matrix);
+	void PrintMatrix(int rowCount, int columnCount, std::vector<std::vector<int>> matrix);
+	void ApplyMod(std::vector<std::vector<int>> matrix);
+
+	// helper methods for syndrome table
 	void GenerateAllBinaries(int n, std::vector<int> &arr, int i, std::vector<std::vector<int>> *tuple);
 	void FillMap(std::vector<int> tuple, std::vector<std::vector<int>> Controlmatrix);
 
