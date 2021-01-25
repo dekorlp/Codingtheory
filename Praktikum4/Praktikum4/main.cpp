@@ -4,7 +4,7 @@
 int main()
 {
 	Matrix mat;
-	mat.CreateGeneratorMatrix(2);
+	mat.CreateGeneratorMatrix(3);
 
 	return 0;
 }

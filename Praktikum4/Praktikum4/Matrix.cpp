@@ -35,7 +35,10 @@ void Matrix::CreateGeneratorMatrix(int m)
 		}
 	}
 
-	int test = 0;
+	TransposeMatrix(matrix);
+
+	std::cout << "Control Matrix: " << std::endl;
+	PrintMatrix(matrix.size(), matrix[0].size(), matrix);
 
 }
 
@@ -52,4 +55,34 @@ void Matrix::GenerateAllBinaries(int n, std::vector<int> &arr, int i, std::vecto
 		arr[i] = j;
 		GenerateAllBinaries(n, arr, i + 1, tuple);
 	}
+}
+
+void Matrix::PrintMatrix(int rowCount, int columnCount, std::vector<std::vector<int>> matrix)
+{
+	for (int i = 0; i < rowCount; i++)
+	{
+		for (int j = 0; j < columnCount; j++)
+		{
+			std::cout << matrix[i][j] << " ";
+		}
+
+		std::cout << std::endl;
+	}
+}
+
+void Matrix::TransposeMatrix(std::vector<std::vector<int>> &matrix)
+{
+	// transpose 
+	std::vector<std::vector<int>> transposedControlMatrix;
+	transposedControlMatrix.resize(matrix[0].size());
+
+	for (int i = 0; i < matrix.size(); i++)
+	{
+		for (int j = 0; j < matrix[0].size(); j++)
+		{
+			transposedControlMatrix.at(j).push_back(matrix[i][j]);
+		}
+	}
+
+	matrix = transposedControlMatrix;
 }
