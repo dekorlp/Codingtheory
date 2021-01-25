@@ -107,7 +107,6 @@ void Matrix::CreateControlMatrix()
 		for (int j = 0; j < backPart[i].size(); j++)
 		{
 			transposed[j][i] = ((-backPart[i][j]) + p)%p;
-			int test = 0;
 		}
 	}
 
@@ -346,6 +345,9 @@ void Matrix::ApplyMod(std::vector<std::vector<int>> matrix)
 
 void Matrix::ErrorCorrection(std::string message)
 {
+	std::cout << std::endl;
+	std::cout << "Input message: " << message;
+
 	std::vector<int> messageVec;
 	
 	// convert to int vector
