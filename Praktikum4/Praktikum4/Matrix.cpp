@@ -49,8 +49,76 @@ void Matrix::CreateGeneratorMatrix()
 	std::vector<std::vector<int>> matrix = mControlMatrixMatrix;
 	MoveUnitMatrix(matrix);
 	std::cout << std::endl;
-	PrintMatrix(matrix.size(), matrix[0].size(), matrix);
+	//PrintMatrix(matrix.size(), matrix[0].size(), matrix);
 
+	int rowCount = matrix.size(), columnCount = matrix[0].size();
+
+	// grab back part, which is not the identity matrix
+	std::vector<std::vector<int>> backPart;
+	for (int i = 0; i < rowCount; i++)
+	{
+		std::vector<int> row;
+
+		for (int j = rowCount; j < columnCount; j++)
+		{
+			//std::cout << m_Values[i][j] << " ";
+			row.push_back(matrix[i][j]);
+		}
+		backPart.push_back(row);
+
+		//std::cout << std::endl;
+	}
+
+
+	std::vector<std::vector<int>> transposed;
+	transposed.resize(backPart[0].size());
+	for (int i = 0; i < transposed.size(); i++)
+	{
+		transposed[i].resize(backPart.size());
+	}
+
+	for (int i = 0; i < backPart.size(); i++)
+	{
+		for (int j = 0; j < backPart[i].size(); j++)
+		{
+			transposed[j][i] = ((-backPart[i][j]) + q) % q;
+		}
+	}
+
+	int rowCountTransposed = transposed.size(), columnCountTransposed = transposed[0].size();
+
+	int identityCounter = 0;
+	// append identity matrix
+	for (int i = 0; i < transposed.size(); i++)
+	{
+		for (int j = 0; j < rowCountTransposed; j++)
+		{
+			if (j == identityCounter)
+			{
+				transposed[i].push_back(1);
+			}
+			else
+			{
+				transposed[i].push_back(0);
+			}
+		}
+		identityCounter++;
+	}
+
+	mGeneratorMatrixMatrix = transposed;
+
+	// print control Matrix in canonical Form
+	std::cout << std::endl,
+		std::cout << "Generator Matrix: " << std::endl;
+	for (int i = 0; i < mGeneratorMatrixMatrix.size(); i++)
+	{
+		for (int j = 0; j < mGeneratorMatrixMatrix[i].size(); j++)
+		{
+			std::cout << mGeneratorMatrixMatrix[i][j] << " ";
+		}
+
+		std::cout << std::endl;
+	}
 }
 
 void Matrix::GenerateAllBinaries(int n, std::vector<int> &arr, int i, std::vector<std::vector<int>> *tuple)
