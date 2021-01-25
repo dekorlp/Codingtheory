@@ -27,4 +27,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Users\denni\AppData\Local\Temp\cweuy3wn.bmp">
+      <Filter>Header Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

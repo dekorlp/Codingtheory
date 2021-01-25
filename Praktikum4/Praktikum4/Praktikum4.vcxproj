@@ -25,6 +25,9 @@
   <ItemGroup>
     <ClInclude Include="Matrix.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Users\denni\AppData\Local\Temp\cweuy3wn.bmp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{257E7517-4621-4641-A678-3A29970EA8E1}</ProjectGuid>

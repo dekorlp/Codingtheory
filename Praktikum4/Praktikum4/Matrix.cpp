@@ -1,6 +1,6 @@
 #include "Matrix.h"
 
-void Matrix::CreateGeneratorMatrix(int m)
+void Matrix::CreateKontrollMatrix(int m)
 {
 	std::vector<std::vector<int>> matrix;
 	
@@ -38,6 +38,17 @@ void Matrix::CreateGeneratorMatrix(int m)
 	TransposeMatrix(matrix);
 
 	std::cout << "Control Matrix: " << std::endl;
+	PrintMatrix(matrix.size(), matrix[0].size(), matrix);
+
+	mControlMatrixMatrix = matrix;
+
+}
+
+void Matrix::CreateGeneratorMatrix()
+{
+	std::vector<std::vector<int>> matrix = mControlMatrixMatrix;
+	MoveUnitMatrix(matrix);
+	std::cout << std::endl;
 	PrintMatrix(matrix.size(), matrix[0].size(), matrix);
 
 }
@@ -85,4 +96,77 @@ void Matrix::TransposeMatrix(std::vector<std::vector<int>> &matrix)
 	}
 
 	matrix = transposedControlMatrix;
+}
+
+void Matrix::MoveUnitMatrix(std::vector<std::vector<int>> &matrix)
+{
+	std::vector<std::vector<int>> identityParts;
+	std::vector<int> identityPositions;
+	int m = matrix.size();
+
+	for (int i = 0; i < m; i++)
+	{
+		std::vector<int> value;
+		for(int j = 0; j < m; j++)
+		{
+			if (i == j)
+			{
+				value.push_back(1);
+			}
+			else
+			{
+				value.push_back(0);
+			}
+		}
+		identityParts.push_back(value);
+	}
+
+	TransposeMatrix(matrix);
+
+	for (int i = 0; i < identityParts.size(); i++)
+	{
+		for (int j = 0; j < matrix.size(); j++)
+		{
+			if (matrix[j] == identityParts[i])
+			{
+				identityPositions.push_back(j);
+				break;
+			}
+		}
+	}
+
+	//TransposeMatrix(matrix);
+
+	// create new Matrix
+	std::vector<std::vector<int>> editedMatrix;
+	editedMatrix.resize(matrix.size());
+	for (int i = 0; i < identityPositions.size(); i++)
+	{
+		editedMatrix[i] = identityParts[i];
+	}
+	for (int i = editedMatrix[0].size(); i < matrix.size(); i++)
+	{		
+		if (std::find(identityPositions.begin(), identityPositions.end(), i) == identityPositions.end()) // not found
+		{
+			editedMatrix[i] = matrix[i];
+		}
+		else // found
+		{
+			int index = -1;
+			for (int j = 0; j < identityPositions.size(); j++)
+			{
+				if (identityPositions[j] == i)
+				{
+					index = j;
+					break;
+				}
+			}
+
+			editedMatrix[i] = matrix[index];
+		}
+	}
+
+	TransposeMatrix(editedMatrix);
+
+	matrix = editedMatrix;
 }
