@@ -1,12 +1,14 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <string>
 
 class Matrix
 {
 public:
 	void CreateKontrollMatrix(int m); // 1
 	void CreateGeneratorMatrix();
+	void ErrorCorrection(std::string message);
 
 	
 

@@ -238,3 +238,61 @@ void Matrix::MoveUnitMatrix(std::vector<std::vector<int>> &matrix)
 
 	matrix = editedMatrix;
 }
+
+void Matrix::ErrorCorrection(std::string message)
+{
+	std::vector<std::vector<int>> matrix = mControlMatrixMatrix;
+	TransposeMatrix(matrix);
+
+	std::cout << std::endl;
+	std::cout << "Input message: " << message;
+
+	std::vector<int> messageVec;
+
+	// convert to int vector
+	for (int i = 0; i < message.size(); i++)
+	{
+		messageVec.push_back((int)message[i] - 48);
+	}
+
+	// generate class of syndrome table
+	std::vector<int> classNumber;
+	for (int i = 0; i < matrix[0].size(); i++)
+	{
+		int result = 0;
+		for (int j = 0; j < messageVec.size(); j++) // length of tuple = size of Controlmatrix (count columns)
+		{
+			result += matrix[j][i] * messageVec[j];
+			result %= q;
+		}
+		classNumber.push_back(result);
+	}
+
+	// find position of bit error
+	int index = -1;
+	for (int i = 0; i < matrix.size(); i++)
+	{
+		if (matrix[i] == classNumber)
+		{
+			index = i;
+		}
+	}
+
+	std::vector<int> correctedVec = messageVec;
+	if (correctedVec[index] == 0)
+	{
+		correctedVec[index] = 1;
+	}
+	else
+	{
+		correctedVec[index] = 0;
+	}
+
+	// print corrected message
+	std::cout << std::endl;
+	std::cout << "Corrected Message: ";
+	for (auto i : correctedVec)
+		std::cout << i;
+
+	int test = 0;
+}
