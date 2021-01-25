@@ -18,7 +18,7 @@ private:
 
 	void MoveUnitMatrix(std::vector<std::vector<int>> &matrix);
 
-	int q = 5;
+	int q = 2;
 
 	std::vector<std::vector<int>> mControlMatrixMatrix;
 	std::vector<std::vector<int>> mGeneratorMatrixMatrix;
