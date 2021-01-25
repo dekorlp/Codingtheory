@@ -14,21 +14,25 @@ void Matrix::CreateGeneratorMatrix(int m)
 
 
 		// fill Matrix
-		std::vector<int> value;
-		int counter = i-1;
-		while (counter != m)
+		for (int j = 0; j < tuples.size(); j++)
 		{
-			if (m - counter == 1)
+			std::vector<int> value;
+			int counter = i - 1;
+			while (counter != m)
 			{
-				value.push_back(1);
+				if (m - counter == 1)
+				{
+					value.push_back(1);
+				}
+				else
+				{
+					value.push_back(0);
+				}
+				counter++;
 			}
-			else
-			{
-				value.push_back(0);
-			}
-			counter++;
+			value.insert(std::end(value), std::begin(tuples[j]), std::end(tuples[j]));
+			matrix.push_back(value);
 		}
-		value.insert(std::end(value), std::begin(arr), std::end(arr));
 	}
 
 	int test = 0;
