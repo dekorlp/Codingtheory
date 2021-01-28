@@ -33,9 +33,6 @@ std::vector<std::vector<int>> ReedMuellerAlgorithm(RM rm)
 	else
 	{
 		std::vector<std::vector<int>> matrix00 = ReedMuellerAlgorithm({ work.r, work.m - 1});
-
-
-		//std::vector<std::vector<int>> matrix01 = ReedMuellerAlgorithm({ work.r, work.m - 1});
 		std::vector<std::vector<int>> matrix11 = ReedMuellerAlgorithm({ work.r - 1, work.m - 1});
 
 		for (int i = 0; i < matrix00.size(); i++)
@@ -67,7 +64,6 @@ std::vector<std::vector<int>> ReedMuellerAlgorithm(RM rm)
 		}
 	}
 
-	 int test = 0;
 	 return result;
 }
 
@@ -86,10 +82,11 @@ void PrintMatrix(int rowCount, int columnCount, std::vector<std::vector<int>> ma
 
 int main()
 {
-	unsigned int r = 1, m = 3;
+	//unsigned int r = 1, m = 3;
 	//unsigned int r = 1, m = 5;
-	//unsigned int r = 2, m = 3;
-
+	unsigned int r = 2, m = 3;
+	std::cout << "Reed-Muller Code with Parameters: r = " << r << " and m = " << m << std::endl;
+	std::cout << "-------------------------------------------------" << std::endl;
 	std::vector<std::vector<int>> matrix = ReedMuellerAlgorithm({r, m});
 	
 	PrintMatrix(matrix.size(), matrix[0].size(), matrix);
