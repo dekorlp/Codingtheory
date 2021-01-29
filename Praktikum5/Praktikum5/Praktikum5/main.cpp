@@ -82,9 +82,9 @@ void PrintMatrix(int rowCount, int columnCount, std::vector<std::vector<int>> ma
 
 int main()
 {
-	//unsigned int r = 1, m = 3;
+	unsigned int r = 1, m = 3;
 	//unsigned int r = 1, m = 5;
-	unsigned int r = 2, m = 3;
+	//unsigned int r = 2, m = 3;
 	std::cout << "Reed-Muller Code with Parameters: r = " << r << " and m = " << m << std::endl;
 	std::cout << "-------------------------------------------------" << std::endl;
 	std::vector<std::vector<int>> matrix = ReedMuellerAlgorithm({r, m});
@@ -92,5 +92,4 @@ int main()
 	PrintMatrix(matrix.size(), matrix[0].size(), matrix);
 
 	int test = 0;
-    std::cout << "Hello World!\n";
 }
