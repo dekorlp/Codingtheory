@@ -243,6 +243,8 @@ void PolynomManager::CreateUnzerlegbarePolynome()
 
 	// GF(2)
 	Polynom pol;
+	pol.CreatePolynom({ PolynomPart(0,0) }); // not used!
+	m_UnzerlegbarePolynomeGF2.push_back(pol);
 	pol.CreatePolynom({PolynomPart(0,1) }); // not used!
 	m_UnzerlegbarePolynomeGF2.push_back(pol);
 	pol.CreatePolynom({ PolynomPart(1,2), PolynomPart(1,1),  PolynomPart(1,0) });
